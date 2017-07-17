@@ -114,7 +114,7 @@ CCBus.prototype =
   registerDevice: function registerDevice(device)
   {
     this.devices[device.config.dest] = device;
-    if(this.ser.isOpen())
+    if(this.ser.isOpen)
     {
       device.onBusReady();
     }
