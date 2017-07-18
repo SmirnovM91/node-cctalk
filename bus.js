@@ -24,7 +24,7 @@ function cctalkParser() {
 inherits(cctalkParser, Transform);
 
 // TODO: Update this to use new Buffer
-cctalkParser.prototype._transform = chunk, encoding, cb => {
+cctalkParser.prototype._transform = (chunk, encoding, cb) => {
   this.buffer.set(buffer, this.buffer.cursor);
   this.buffer.cursor += buffer.length;
   var length = this.buffer[1] + 5;
@@ -73,7 +73,7 @@ function CCBus(port, config) {
 }
 
 CCBus.prototype = {
-  forEachDevice: callback => {
+  forEachDevice: (callback) => {
     var dests = Object.keys(this.devices);
     dests.forEach(function(dest) {
       callback(this.devices[dest]);
@@ -84,7 +84,7 @@ CCBus.prototype = {
       device.onBusReady();
     });
   },
-  onData: command => {
+  onData: (command) => {
     //console.log('data', command);
     if(command.dest != this.config.src)
       return;
@@ -107,16 +107,16 @@ CCBus.prototype = {
   },
   onClose: () => this.forEachDevice(device => device.onBusClosed()),
 
-  onError: err => console.log("Serial port error", err),
+  onError: (err) => console.log("Serial port error", err),
 
-  registerDevice: device => {
+  registerDevice: (device) => {
     this.devices[device.config.dest] = device;
     if(this.ser.isOpen) {
       device.onBusReady();
     }
   },
-  sendRawCommand: command => {
-    return new Promise(resolve, reject => {
+  sendRawCommand: (command) => {
+    return new Promise((resolve, reject) => {
       //console.log("will send command");
       command.src = this.config.src;
       this.ser.write(command.toBuffer(), function(err) {
@@ -131,8 +131,8 @@ CCBus.prototype = {
   },
   // Send command with promised reply
   // If you use this function, use it exclusively and don't forget to call _onData() if you override onData()
-  sendCommand: command => {
-    var promise = timeout(new Promise(resolve, reject => {
+  sendCommand: (command) => {
+    var promise = timeout(new Promise((resolve, reject) => {
       command.resolve = resolve;
       command.reject = reject;
     }), this.config.timeout);
