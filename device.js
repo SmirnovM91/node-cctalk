@@ -1,52 +1,41 @@
-var Promise = require('promise');
-var CCBus = require('./bus');
-var CCCommand = require('./command');
-var defaults = require('defaults-deep');
+const CCBus = require('./bus');
+const cctalkCmd = require('./command')
+const cmd = new cctalkCmd(8);
+const defaults = require('defaults-deep');
 
-function CCDevice(bus, config)
-{
-  if(!bus && !config) // initialize prototype only
+function CCDevice(bus, config) {
+  // initialize prototype only
+  if(!bus && !config) {
     return;
-  
-  if(typeof bus == 'string')
+  }
+
+  if(typeof bus == 'string') {
    this.bus = new CCBus(bus, config);
-  else
+  } else {
     this.bus = bus;
-  
+  }
+
+  this.commands = {
+    simplePoll: 254,
+    addressPoll: 253,
+    addressClash: 252,
+    addressChange: 251,
+    addressRandom: 250
+  };
+
   this.config = defaults(config, { dest: 2 });
 }
 
-CCDevice.prototype =
-{
-  onBusReady: function onBusReady()
-  {
-    console.log("Warn: CCTalk device proxy doesn't override onBusReady()");
-  },
-  
-  onData: function onData(command)
-  {
+CCDevice.prototype = {
+  onBusReady: () => console.log("Warn: CCTalk device proxy doesn't override onBusReady()"),
+  onData: command => {
     // Don't do anything by default
   },
-  
-  onBusClosed: function onBusClosed()
-  {
-    console.log("Warn: CCTalk device proxy doesn't override onBusClosed()");
-  },
-  
-  sendCommand: function sendCommand(command)
-  {
+  onBusClosed: () =>  console.log("Warn: CCTalk device proxy doesn't override onBusClosed()"),
+  sendCommand: command => {
     command.dest = this.config.dest;
     return this.bus.sendCommand(command);
   }
-};
-
-CCDevice.commands =
-{
-  simplePoll: 254,
-  addressPoll: 253,
-  addressClash: 252,
-  addressChange: 251,
-  addressRandom: 250
 };
 
 module.exports = exports = CCDevice;
