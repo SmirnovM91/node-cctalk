@@ -5,9 +5,8 @@ module.exports =
   CCDevice: require('./device'),
   CoinDetector: require('./coindetector')
 };
-
-if(!module.parent) // running this file as main
-{
+// running this file as main
+if(!module.parent) {
   var cd = new module.exports.CoinDetector('/dev/ttyUSB0');
 
   cd.on('error', function(e)
@@ -22,7 +21,7 @@ if(!module.parent) // running this file as main
       console.log('ready');
       cd.enableAcceptance();
       cd.setAcceptanceMask(0xFFFF);
-      
+
       cd.on('error', function(e) { console.log('error', e); });
       cd.on('accepted', function(c)
       {

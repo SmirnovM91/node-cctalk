@@ -4,6 +4,7 @@ const device = require('./device');
 const EventEmitter = require('events');
 const compose = require('./compose');
 const cdEmitter = compose(device, EventEmitter)
+
 function CoinDetector(bus, config) {
   EventEmitter.call(this);
   device.apply(this, arguments);
@@ -89,12 +90,7 @@ CoinDetector.prototype.onBusReady = function onBusReady() {
       this.ready = true;
       this.pollInterval = setInterval(this.poll, 200);
       this.emit('ready');
-    },
-    function(error)
-    {
-      this.emit('error', error);
-    }.bind(this));
-
+    }, (error) => this.emit('error', error));
 };
 
 CoinDetector.prototype.onBusClosed = () => this.ready = false;
