@@ -89,7 +89,7 @@ CoinDetector.prototype.onBusReady = function onBusReady() {
       this.ready = true;
       this.pollInterval = setInterval(this.poll, 200);
       this.emit('ready');
-    }.bind(this),
+    },
     function(error)
     {
       this.emit('error', error);
@@ -101,7 +101,7 @@ CoinDetector.prototype.onBusClosed = () => this.ready = false;
 
 CoinDetector.prototype.poll = () => {
   this.sendCommand(new cmd(0, 0, CoinDetector.commands.readBufferedCredit, new Uint8Array(0)))
-  .then(reply => {
+  .then((reply) => {
     if(this.eventBuffer && reply.data[0] != this.eventBuffer[0]) {
       var dEventCounter = reply.data[0] -  this.eventBuffer[0];
       if(dEventCounter > 5) {
@@ -135,7 +135,7 @@ CoinDetector.prototype.poll = () => {
   });
 };
 
-CoinDetector.prototype.errorHandler = e => {
+CoinDetector.prototype.errorHandler = (e) => {
   this.emit('error', e);
   throw e;
 };
@@ -157,7 +157,7 @@ CoinDetector.prototype.disableAcceptance = function disableAcceptance() {
 
 CoinDetector.prototype.getCoinName = function getCoinName(channel) {
   return this.sendCommand(new cmd(0,0,CoinDetector.commands.requestCoinId,Uint8Array.from([ channel ])))
-   .then(reply => String.fromCharCode.apply(null, reply.data));
+   .then((reply) => String.fromCharCode.apply(null, reply.data));
 };
 
 CoinDetector.prototype.getCoinPosition = function getCoinPosition(channel) {
