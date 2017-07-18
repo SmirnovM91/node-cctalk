@@ -105,14 +105,10 @@ CCBus.prototype = {
         lastCommand.reject(command);
     }
   },
-  onClose: () => {
-    this.forEachDevice(function(device) {
-      device.onBusClosed();
-    };
-  },
-  onError: err => {
-    console.log("Serial port error", err);
-  },
+  onClose: () => this.forEachDevice(device => device.onBusClosed()),
+
+  onError: err => console.log("Serial port error", err),
+
   registerDevice: device => {
     this.devices[device.config.dest] = device;
     if(this.ser.isOpen) {
