@@ -1,9 +1,9 @@
 const cctalkCmd = require('./command')
 const cmd = new cctalkCmd(8);
-var device = require('./device');
-var EventEmitter = require('events');
-var compose = require('./compose');
-
+const device = require('./device');
+const EventEmitter = require('events');
+const compose = require('./compose');
+const cdEmitter = compose(device, EventEmitter)
 function CoinDetector(bus, config) {
   EventEmitter.call(this);
   device.apply(this, arguments);
@@ -81,7 +81,7 @@ function CoinDetector(bus, config) {
   this.bus.registerDevice(this);
 }
 
-CoinDetector.prototype = new compose(device, EventEmitter)();
+CoinDetector.prototype = new cdEmitter();
 
 CoinDetector.prototype.onBusReady = function onBusReady() {
   this.sendCommand(new cmd(this.config.src, this.config.dest, 254, new Uint8Array(0)))
