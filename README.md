@@ -3,7 +3,7 @@ Node Library to interface coin detectors and other peripheral devices speaking t
 
 This library aims to provide support for various peripheral devices that use the ccTalk protocol
 over a serial line or serial line emulation over USB. It's primary target is the EMP800 by
-wh Münzprüfer Berlin. 
+wh Münzprüfer Berlin. and Taiko Pub 7 BillAcceptor
 
 At the moment this is very much a work in progress.
 
@@ -34,7 +34,7 @@ Arguments:
 Adds a device to the internal list of devices managed by this host.
 
 Argument:
-- device: a device object to register (must implement the CCDevice API)
+- device: a device object to register (must implement the CCDevice API) See the /examples folder for some device implamentations
 
 ##### ccBus.sendCommand(command)
 
@@ -140,6 +140,8 @@ Returns:
 Finally something useful! Implements a coin acceptor.
 
 **TODO** Document API
+
+**TODO** More examples
 
 Disclaimer
 ----------

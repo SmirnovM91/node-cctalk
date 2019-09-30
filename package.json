@@ -1,8 +1,15 @@
 {
-  "name": "cctalk",
-  "version": "0.1.2",
+  "name": "node-cctalk",
+  "version": "1.0.0",
   "description": "Interface coin acceptors and other hardware speaking ccTalk",
+  "email": "frank@dspeed.eu",
+  "author": "Frank Lemanschik",
   "keywords": [
+    "emp800",
+    "taiko",
+    "pub-7",
+    "billvalidator",
+    "coinacceptor",
     "serial",
     "usb",
     "money",
@@ -10,16 +17,18 @@
     "hardware",
     "cctalk"
   ],
-  "main": "cctalk.js",
+  "main": "src/cctalk.js",
   "dependencies": {
-    "defaults-deep": "^0.2.3",
-    "promise": "^7.1.1",
+    "node-cctalk-command":"^1.0.0",
+    "promise": "^8.0.0",
+    "debug": "^3.0.0",
     "promise-timeout": "^1.0.0",
-    "serialport": "git+https://github.com/EmergingTechnologyAdvisors/node-serialport"
+    "serialport": "^6.0.0",
+    "defaults-deep": "^0.2.3"
   },
-  "license": "BSD-2-Clause",
+  "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Polyxo/node-cctalk.git"
+    "url": "https://github.com/direktspeed/node-cctalk.git"
   }
 }
