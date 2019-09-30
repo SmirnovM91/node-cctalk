@@ -1,4 +1,6 @@
-Node Library to interface coin detectors and other peripheral devices speaking the ccTalk protocol
+# node-cctalk a succesor of cctalk on npm
+
+Node Library to interface coin detectors, bill validators and other peripheral devices speaking the ccTalk protocol
 ==================================================================================================
 
 This library aims to provide support for various peripheral devices that use the ccTalk protocol
