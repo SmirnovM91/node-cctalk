@@ -4,11 +4,10 @@
   var timeout = require('promise-timeout').timeout;
   var debug = require('debug')('CCBus');
 
-  var ccTalkParser = require('serialport-parsers-cctalk');
+  var ccTalkParser = require('@serialport/parser-cctalk');
   //var ccTalkParser = SerialPort.parsers.CCTalk;
 
-  var parser = new ccTalkParser();
-
+  var parser = new ccTalkParser
   class CCBus {
     constructor(port, config) {
       //this.parserBuffer = new Uint8Array(255+5);

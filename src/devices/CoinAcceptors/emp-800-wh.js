@@ -1,10 +1,10 @@
-const CCDevice = require('..');
+const CCDevice = require('../../device.js');
 const defaults = require('defaults-deep');
 const debug = require('debug')
 class CoinDetector extends CCDevice {
   constructor(bus, config) {
     super(bus,config)
-
+    
     this.commands = defaults({
       requestStatus: 248,
       requestVariableSet: 247,

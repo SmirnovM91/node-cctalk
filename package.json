@@ -19,12 +19,13 @@
   ],
   "main": "src/cctalk.js",
   "dependencies": {
-    "node-cctalk-command":"^1.0.0",
-    "promise": "^8.0.0",
+    "@serialport/parser-cctalk": "^9.0.0",
     "debug": "^3.0.0",
+    "defaults-deep": "^0.2.3",
+    "node-cctalk-command": "git+https://github.com/direktspeed/node-cctalk-command.git",
+    "promise": "^8.0.0",
     "promise-timeout": "^1.0.0",
-    "serialport": "^6.0.0",
-    "defaults-deep": "^0.2.3"
+    "serialport": "^9.0.0"
   },
   "license": "Apache-2.0",
   "repository": {
