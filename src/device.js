@@ -1,9 +1,8 @@
-const CCBus = require('./bus');
+const CCBus = require('./bus.js');
 const EventEmitter = require('events').EventEmitter;
 const debug = require('debug');
-const crc = require('crc');
 const defaults = require('defaults-deep');
-const CCCommand = require('node-cctalk-command');
+
 class CCDevice extends EventEmitter {
   constructor (bus, config) {
     super()
@@ -28,9 +27,9 @@ class CCDevice extends EventEmitter {
       this.bus = bus;
     }
 
-    this.bus.ser.on('close',()=>{ this.onBusClosed(); })
-    this.bus.ser.on('open',()=>{ this.onBusOpen(); })
-    if (this.bus.ser.isOpen){
+    this.bus.port.on('close',()=>{ this.onBusClosed(); })
+    this.bus.port.on('open',()=>{ this.onBusOpen(); })
+    if (this.bus.port.isOpen){
       this.onBusOpen()
     }
   }
@@ -49,7 +48,7 @@ class CCDevice extends EventEmitter {
     if (!data) {
       data = new Uint8Array(0); // Buffer.from([])
     }
-    var newCmd = new CCCommand(this.config.src, this.config.dest, command, data, this.config.crc )
+    var newCmd = this.bus.Command(this.config.src, this.config.dest, command, data, this.config.crc )
     return this.bus.sendCommand(newCmd)
   }
   onBusOpen() {

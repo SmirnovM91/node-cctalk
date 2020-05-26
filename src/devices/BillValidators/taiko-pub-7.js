@@ -3,7 +3,7 @@ const CCDevice = require('..');
 const debug = require('debug');
 const crc = require('crc');
 const defaults = require('defaults-deep');
-
+// Taiko Pub7
 class BillValidator extends CCDevice {
   constructor(bus, config) {
     super(bus, config);

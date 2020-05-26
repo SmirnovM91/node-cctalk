@@ -9,7 +9,7 @@ CCDevice = Register a Device on the CCBus
 
 const CCBus = require('./bus.js');
 const CCCommand = require('node-cctalk-command');
-const CCDevice = require('./device');
+const CCDevice = require('./device.js');
 
 module.exports = {
   command: CCCommand,

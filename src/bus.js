@@ -1,13 +1,11 @@
-  var SerialPort = require('serialport');
-  var CCCommand = require('node-cctalk-command');
-  var defaults = require('defaults-deep');
-  var timeout = require('promise-timeout').timeout;
-  var debug = require('debug')('CCBus');
+const SerialPort = require('serialport');
+const CCCommand = require('node-cctalk-command');
+const defaults = require('defaults-deep');
+const timeout = require('promise-timeout').timeout;
+const debug = require('debug')('CCBus');
 
-  var ccTalkParser = require('@serialport/parser-cctalk');
-  //var ccTalkParser = SerialPort.parsers.CCTalk;
-
-  var parser = new ccTalkParser
+const ParserCCTalk = require('@serialport/parser-cctalk');
+const parser = new ParserCCTalk()
   class CCBus {
     constructor(port, config) {
       //this.parserBuffer = new Uint8Array(255+5);
@@ -15,11 +13,12 @@
       this.parser = parser
       this.config = defaults(config, { src: 1, timeout: 2000 });
       this.connectionStatus = 'closed';
+      this.Command = CCCommand;
+      this.port = new SerialPort(port, { baudRate: 9600, autoOpen: false });
+      this.port.on('error', (err) => console.log('Serial port error', err));
 
-      this.ser = new SerialPort(port, { baudRate: 9600, autoOpen: false });
-      this.ser.on('error', (err) => console.log('Serial port error', err));
-
-      this.ser.pipe(parser);
+      this.port.pipe(parser);
+      //Deprecated
       function toArrayBuffer(buf) {
         var ab = new ArrayBuffer(buf.length);
         var view = new Uint8Array(ab);
@@ -63,7 +62,7 @@
       }
     }
     registerDevice(device) {
-      if(this.ser.isOpen) {
+      if(this.port.isOpen) {
         debug('bus::registerDevice::deprected')('')
         //device.onBusOpen();
       }
@@ -82,7 +81,6 @@
       }
       // Send command with promised reply
       // If you use this function, use it exclusively and don't forget to call _onData() if you override onData()
-
       var promise = timeout(new Promise((resolve, reject) => {
        command.resolve = resolve;
        command.reject = reject;
@@ -96,8 +94,8 @@
            this.lastCommand = command;
            debug('SET LAST COMMAND')
            return new Promise((resolve,reject)=> {
-               debug(new Buffer.from(command.toBuffer()))
-               this.ser.write(command.toBuffer(),(err)=>{
+               debug(Buffer.from(command.toBuffer()))
+               this.port.write(command.toBuffer(),(err)=>{
                  if(err) {
                    reject(err)
                  } else {
@@ -108,10 +106,7 @@
         })
         .then(() => promise)
 
-        //.then(()=>process.exit(1))
       return promise
-        //.then(()=>console.log('WEEEEEEEEEEEEEEE ARE RESOLVED'))
-        .catch(commandErrorHandler);
      }
   };
 
