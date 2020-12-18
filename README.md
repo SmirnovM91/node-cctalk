@@ -1,17 +1,18 @@
 # node-cctalk a succesor of cctalk on npm
 
-## Usage
-```
-import
-```
+https://github.com/direktspeed/webserial-cctalk is work in Progress that Aims to solve the Same Scenario that this one solves on the backend directly in the frontend.
 
-
-
-
-Node Library to interface coin detectors, bill validators and other peripheral devices speaking the ccTalk protocol
+NodeJS Example Application that does interface coin detectors, bill validators and other peripheral devices speaking the ccTalk protocol
+Gets used in Production on Some Places like Vending Machines.
 
 This library aims to provide support for various peripheral devices that use the ccTalk protocol
 over a serial line or serial line emulation over USB. This is using serialport for connections and has Contributed the cctalk-parser directly to the serialport project.
+
+## Usage
+```
+{ } = await import('')
+```
+
 
 
 
@@ -21,7 +22,6 @@ over a serial line or serial line emulation over USB. This is using serialport f
 
 **TODO** Document API
 
-**TODO** More examples
 
 Disclaimer
 ----------
