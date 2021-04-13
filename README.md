@@ -1,5 +1,8 @@
 # node-cctalk a succesor of cctalk on npm
 
+A Big Thanks goes to Copyright (c) 2016, Lukas Winter which had done a first implementation that i took for my implementation. as mentioned below i see the feature in refactoring this now to work with webserial & serialport.
+
+
 https://github.com/direktspeed/webserial-cctalk is work in Progress that Aims to solve the Same Scenario that this one solves on the backend directly in the frontend.
 
 NodeJS Example Application that does interface coin detectors, bill validators and other peripheral devices speaking the ccTalk protocol
